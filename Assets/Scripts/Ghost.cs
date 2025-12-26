@@ -4,12 +4,12 @@ using UnityEngine;
 public class Ghost : MonoBehaviour
 {
     [SerializeField] private float speed = 1f;
-    private Transform player;
+    private GameObject player;
     public string colour = "green";
 
-    void Start()
+    void Awake()
     {
-        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
+        player = GameObject.FindGameObjectWithTag("Player");
     }
 
     void Update()
@@ -21,6 +21,7 @@ public class Ghost : MonoBehaviour
     {
         if(other.gameObject.tag == "Player")
         {
+            player.GetComponent<Player>().isHurt = true;
             Destroy(gameObject);
         }
     }
