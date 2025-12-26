@@ -29,7 +29,7 @@ public class Player : MonoBehaviour
     {
         if(!isHurt)
         {
-            if(Input.GetButton("Fire1"))
+            if(Input.GetButton("Fire1") && collectionManager.collected[^1] == "")
             {
                 vaccumSprite.SetActive(true);
             }
@@ -49,7 +49,7 @@ public class Player : MonoBehaviour
                 moveInput = Input.GetAxis("Horizontal");
 
                 rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
-                vaccumRb.MovePosition(vaccumRb.position + movement * moveSpeed * Time.fixedDeltaTime);
+                vaccumRb.transform.position = rb.position;
                 vaccumRb.rotation = angle;
         }
         else

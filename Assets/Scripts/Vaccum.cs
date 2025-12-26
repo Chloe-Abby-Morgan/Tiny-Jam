@@ -6,6 +6,7 @@ public class Vaccum : MonoBehaviour
 {
     [SerializeField] private float captureTime = 1f;
     private CollectionManager collectionManager;
+    private bool capturing = false;
 
     void Awake()
     {
@@ -16,7 +17,10 @@ public class Vaccum : MonoBehaviour
     {
         if(other.gameObject.tag == "Ghost")
         {
+            if (!capturing)
+            {
             StartCoroutine(Capture(other.gameObject.GetComponent<Ghost>().colour, other.gameObject));
+            }
         }
     }
 
@@ -24,11 +28,13 @@ public class Vaccum : MonoBehaviour
     {
         if(other.gameObject.tag == "Ghost")
         {
+            capturing = false;
             StopCoroutine(Capture(other.gameObject.GetComponent<Ghost>().colour, other.gameObject));
         }
     }
     IEnumerator Capture(string colour, GameObject ghost)
     {
+        capturing = true;
         yield return new WaitForSeconds(captureTime);
         if(collectionManager.collected[^1] == "")
         {
