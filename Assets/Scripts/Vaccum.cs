@@ -1,12 +1,27 @@
+using System.Collections;
 using UnityEngine;
 
 public class Vaccum : MonoBehaviour
 {
-    void OnTriggerEnter2D(Collider2D other)
+    [SerializeField] private float captureTime = 1f;
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        if(other.tag == "Ghost")
+        if(other.gameObject.tag == "Ghost")
         {
-            Debug.Log("other");
+            StartCoroutine(Capture(other.gameObject.GetComponent<Ghost>().colour));
         }
+    }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if(other.gameObject.tag == "Ghost")
+        {
+            StopCoroutine(Capture(other.gameObject.GetComponent<Ghost>().colour));
+        }
+    }
+    IEnumerator Capture(string colour)
+    {
+        yield return new WaitForSeconds(captureTime);
+        Debug.Log(colour);
     }
 }
