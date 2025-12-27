@@ -1,8 +1,14 @@
+using NUnit.Framework;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
     public bool isPlaying=true;
+    public int roundsWon=0;
+    [SerializeField] private GameObject mainMenu;
+    [SerializeField] private GameObject gameMenu;
+    private bool pLock = true;
     CollectionManager collectionManager;
 
     void Awake()
@@ -27,12 +33,27 @@ public class GameManager : MonoBehaviour
                 }
             }
 
-        if(collectionManager.correctCount == collectionManager.correct.Length)
+            if(collectionManager.correctCount == collectionManager.correct.Length) 
+            {
+                Debug.Log("You win gaymer");
+                if(pLock)
+                {
+                roundsWon++;
+                pLock = false;
+                }
+            }
+
+            mainMenu.SetActive(true);
+            gameMenu.SetActive(false);
+        }
+        else
         {
-            isPlaying = !isPlaying;
-            Debug.Log("You win gaymer");
+             pLock = true;
         }
-        
-        }
+    }
+
+    public void changeState()
+    {
+        isPlaying = !isPlaying;
     }
 }

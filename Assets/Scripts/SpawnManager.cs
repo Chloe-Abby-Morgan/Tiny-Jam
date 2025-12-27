@@ -20,8 +20,7 @@ public class SpawnManager : MonoBehaviour
     void Start()
     {
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
-        StartCoroutine(IncreaseDifficulty());
-        Invoke("spawnGhost", 1f);
+        starter();
     }
 
     void spawnGhost()
@@ -38,10 +37,19 @@ public class SpawnManager : MonoBehaviour
         Invoke("spawnGhost", spawnTime);
     }
 
+    public void starter()
+    {
+        spawnTime = 120;
+        canSpawn = true;
+        StartCoroutine(IncreaseDifficulty());
+        Invoke("spawnGhost", 1f);
+    }
+
     void Update()
     {
         if(gameManager.isPlaying)
         {
+            canSpawn = true;
         if(canSpawn)
         {
             timerText.text = $"{(int)spawnTime}";
