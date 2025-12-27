@@ -9,6 +9,7 @@ public class LightingManager : MonoBehaviour
 
     [SerializeField] private float lightingTime =5f;
     [SerializeField] private SpriteRenderer[] ghostRenderers;
+    [SerializeField] private Color darkColour;
     private GameObject[] ghosts;
     private Color[] orginalColours;
     private int index=0;
@@ -47,7 +48,7 @@ public class LightingManager : MonoBehaviour
         {
             if(ghostRender != null)
             {
-                ghostRender.color = new Color(0, 0, 0, 1);
+                ghostRender.color = new Color(darkColour.r, darkColour.g, darkColour.b, darkColour.a);
             }
         }
         yield return new WaitForSeconds(lightingTime/2);

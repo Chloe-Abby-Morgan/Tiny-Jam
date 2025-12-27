@@ -13,11 +13,15 @@ public class Player : MonoBehaviour
     [SerializeField] private GameObject vaccumObject;
     [SerializeField] private Rigidbody2D vaccumRb;
     [SerializeField] private GameObject vaccumSprite;
+    [SerializeField] private SpriteRenderer playerSprite;
+    [SerializeField] private Sprite hurtSprite;
+    [SerializeField] private Sprite idleSprite;
     public bool isHurt = false;
     private float moveInput;
     private CollectionManager collectionManager;
     private GameObject[] ghosts;
     private bool hurting = false;
+    private bool facingLeft = false;
     Vector2 movement;
     Vector2 mousePosition;
     GameManager gameManager;
@@ -54,7 +58,6 @@ public class Player : MonoBehaviour
                     }
             }
             
-            
                 movement.x = Input.GetAxisRaw("Horizontal");
                 movement.y = Input.GetAxisRaw("Vertical");
                 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -63,6 +66,16 @@ public class Player : MonoBehaviour
                 float angle = Mathf.Atan2(lookDirection.y, lookDirection.x) * Mathf.Rad2Deg - 90f;
 
                 moveInput = Input.GetAxis("Horizontal");
+
+
+                if(facingLeft && mousePosition.x > 0)
+                {
+                    Fliper();
+                }
+            else if(!facingLeft && mousePosition.x < 0)
+                {
+                    Fliper();
+                }
 
                 rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
                 vaccumRb.transform.position = rb.position;
@@ -84,6 +97,7 @@ public class Player : MonoBehaviour
     IEnumerator Damage()
     {
         Debug.Log("Owwwww");
+        playerSprite.sprite = hurtSprite;
         vaccumSprite.SetActive(false);
         for(int i = 0; i < collectionManager.collected.Length; i++)
         {
@@ -100,5 +114,14 @@ public class Player : MonoBehaviour
         yield return new WaitForSeconds(hurtTime);
         isHurt = !isHurt;
         hurting = !hurting;
+        playerSprite.sprite = idleSprite;
+    }
+
+    void Fliper()
+    {
+        facingLeft = !facingLeft;
+        Vector3 Scaler = transform.localScale;
+        Scaler.x *= -1;
+        transform.localScale = Scaler;
     }
 }
