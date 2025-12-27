@@ -38,7 +38,7 @@ public class Player : MonoBehaviour
             {
                 vaccumSprite.SetActive(false);
             }
-            
+
             if(Input.GetKeyDown(KeyCode.R))
             {
                 for(int i = 0; i < collectionManager.collected.Length; i++)
@@ -46,6 +46,7 @@ public class Player : MonoBehaviour
                         collectionManager.collected[i] = "";
                         collectionManager.collectedImageObj[i].sprite = null;
                         collectionManager.imageObj[i].SetActive(false);
+                        collectionManager.correct[i] = false;
                     }
             }
             
@@ -84,6 +85,7 @@ public class Player : MonoBehaviour
             collectionManager.collected[i] = "";
             collectionManager.collectedImageObj[i].sprite = null;
             collectionManager.imageObj[i].SetActive(false);
+            collectionManager.correct[i] = false;
         }
 
         foreach(GameObject ghost in ghosts)

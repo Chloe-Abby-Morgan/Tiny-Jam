@@ -7,10 +7,33 @@ public class CollectionManager : MonoBehaviour
    public Image[] collectedImageObj;
    public GameObject[] imageObj;
    public Sprite[] sourceImages;
+   public bool[] correct;
    [SerializeField] private string[] targets;
-   [SerializeField] private bool[] correct;
+   [SerializeField] private Image[] requiredObj;
    private int correctCount;
    private bool isPlaying = false;
+
+    void Awake()
+    {
+        for(int i = 0; i < targets.Length; i++)
+        {
+            if(Random.Range(0, targets.Length) == 0)
+            {
+                targets[i] = "red";
+                requiredObj[i].sprite = sourceImages[0];
+            }
+            else if(Random.Range(0, targets.Length) == 1)
+            {
+                targets[i] = "green";
+                requiredObj[i].sprite = sourceImages[1];
+            }
+            else
+            {
+                targets[i] = "blue";
+                requiredObj[i].sprite = sourceImages[2];
+            }
+        }
+    }
 
     void Update()
     {
