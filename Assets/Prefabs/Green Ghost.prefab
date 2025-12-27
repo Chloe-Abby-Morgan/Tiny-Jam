@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1390688619911956790}
   - component: {fileID: 4399449421450614941}
   - component: {fileID: -8062993872656242696}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Green Ghost
   m_TagString: Ghost
   m_Icon: {fileID: 0}
@@ -107,7 +107,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea7961c159b127a42b6ab49fce1dfdf5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Ghost
-  speed: 1
+  speed: 2
   colour: green
 --- !u!61 &1390688619911956790
 BoxCollider2D:

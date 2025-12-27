@@ -17,6 +17,7 @@ public class Player : MonoBehaviour
     private float moveInput;
     private CollectionManager collectionManager;
     private GameObject[] ghosts;
+    private bool hurting = false;
     Vector2 movement;
     Vector2 mousePosition;
 
@@ -54,7 +55,11 @@ public class Player : MonoBehaviour
         }
         else
         {
+            if(!hurting)
+            {
+            hurting = !hurting;
             StartCoroutine(Damage());
+            }
         }
 
         ghosts = GameObject.FindGameObjectsWithTag("Ghost");
@@ -74,5 +79,6 @@ public class Player : MonoBehaviour
         }
         yield return new WaitForSeconds(hurtTime);
         isHurt = !isHurt;
+        hurting = !hurting;
     }
 }

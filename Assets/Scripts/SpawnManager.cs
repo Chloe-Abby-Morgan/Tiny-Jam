@@ -9,7 +9,6 @@ public class SpawnManager : MonoBehaviour
     [SerializeField] private float maximumTimeBetweenSpawn;
     [SerializeField] private bool canSpawn = true;
     [SerializeField] private float spawnTime;
-    [SerializeField] private int ghostsInRoom;
     [SerializeField] private bool spawnerDone;
     GameObject currentPoint;
     int index;
@@ -29,7 +28,6 @@ public class SpawnManager : MonoBehaviour
         if(canSpawn)
         {
             Instantiate(ghosts[Random.Range(0, ghosts.Length)], currentPoint.transform.position, Quaternion.identity);
-            ghostsInRoom++;
         }   
 
         Invoke("spawnGhost", spawnTime);
