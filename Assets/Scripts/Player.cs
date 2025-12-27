@@ -34,11 +34,21 @@ public class Player : MonoBehaviour
             {
                 vaccumSprite.SetActive(true);
             }
-            
             else
             {
                 vaccumSprite.SetActive(false);
             }
+            
+            if(Input.GetKeyDown(KeyCode.R))
+            {
+                for(int i = 0; i < collectionManager.collected.Length; i++)
+                    {
+                        collectionManager.collected[i] = "";
+                        collectionManager.collectedImageObj[i].sprite = null;
+                        collectionManager.imageObj[i].SetActive(false);
+                    }
+            }
+            
             
                 movement.x = Input.GetAxisRaw("Horizontal");
                 movement.y = Input.GetAxisRaw("Vertical");
@@ -68,6 +78,7 @@ public class Player : MonoBehaviour
     IEnumerator Damage()
     {
         Debug.Log("Owwwww");
+        vaccumSprite.SetActive(false);
         for(int i = 0; i < collectionManager.collected.Length; i++)
         {
             collectionManager.collected[i] = "";
