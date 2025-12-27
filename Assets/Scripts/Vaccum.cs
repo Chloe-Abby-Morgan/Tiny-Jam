@@ -1,4 +1,5 @@
 using System.Collections;
+using Microsoft.Unity.VisualStudio.Editor;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -43,6 +44,19 @@ public class Vaccum : MonoBehaviour
                 if(collectionManager.collected[i] == "")
                 {
                     collectionManager.collected[i] = colour;
+                    collectionManager.imageObj[i].SetActive(true);
+                    if(colour == "red")
+                    {
+                        collectionManager.collectedImageObj[i].sprite = collectionManager.sourceImages[0];
+                    }
+                    else if(colour == "green")
+                    {
+                        collectionManager.collectedImageObj[i].sprite = collectionManager.sourceImages[1];
+                    }
+                    else
+                    {
+                        collectionManager.collectedImageObj[i].sprite = collectionManager.sourceImages[2];
+                    }
                     Destroy(ghost);
                     break;
                 }

@@ -71,6 +71,8 @@ public class Player : MonoBehaviour
         for(int i = 0; i < collectionManager.collected.Length; i++)
         {
             collectionManager.collected[i] = "";
+            collectionManager.collectedImageObj[i].sprite = null;
+            collectionManager.imageObj[i].SetActive(false);
         }
 
         foreach(GameObject ghost in ghosts)

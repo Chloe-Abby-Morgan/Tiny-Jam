@@ -1,9 +1,12 @@
 using UnityEngine;
-using UnityEngine.UIElements;
+using UnityEngine.UI;
 
 public class CollectionManager : MonoBehaviour
 {
    public string[] collected;
+   public Image[] collectedImageObj;
+   public GameObject[] imageObj;
+   public Sprite[] sourceImages;
    [SerializeField] private string[] targets;
    [SerializeField] private bool[] correct;
    private int correctCount;
@@ -11,6 +14,7 @@ public class CollectionManager : MonoBehaviour
 
     void Update()
     {
+
         for(int i = 0; i < targets.Length; i++)
         {
             if(collected[i] == targets[i])
