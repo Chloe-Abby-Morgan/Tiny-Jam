@@ -20,14 +20,18 @@ public class Player : MonoBehaviour
     private bool hurting = false;
     Vector2 movement;
     Vector2 mousePosition;
+    GameManager gameManager;
 
     void Awake()
     {
         collectionManager = GameObject.Find("CollectionManager").GetComponent<CollectionManager>();
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
 
     void Update()
     {
+        if(gameManager.isPlaying)
+        {
         if(!isHurt)
         {
             if(Input.GetButton("Fire1") && collectionManager.collected[^1] == "")
@@ -74,6 +78,7 @@ public class Player : MonoBehaviour
         }
 
         ghosts = GameObject.FindGameObjectsWithTag("Ghost");
+        }
     }
 
     IEnumerator Damage()

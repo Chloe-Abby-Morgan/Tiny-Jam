@@ -8,10 +8,9 @@ public class CollectionManager : MonoBehaviour
    public GameObject[] imageObj;
    public Sprite[] sourceImages;
    public bool[] correct;
-   [SerializeField] private string[] targets;
+   public int correctCount;
+   public string[] targets;
    [SerializeField] private Image[] requiredObj;
-   private int correctCount;
-   private bool isPlaying = false;
 
     void Awake()
     {
@@ -37,7 +36,6 @@ public class CollectionManager : MonoBehaviour
 
     void Update()
     {
-
         for(int i = 0; i < targets.Length; i++)
         {
             if(collected[i] == targets[i])
@@ -45,22 +43,6 @@ public class CollectionManager : MonoBehaviour
                 correct[i] = true;
             }
 
-            if(i == 0)
-            {
-                correctCount = 0;
-            }
-
-            if(correct[i] == true)
-            {
-                correctCount++;
-            }
         }
-
-        if(correctCount == correct.Length && !isPlaying)
-        {
-            isPlaying = !isPlaying;
-            Debug.Log("You win gaymer");
-        }
-        
     }
 }

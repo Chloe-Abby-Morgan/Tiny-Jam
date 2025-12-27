@@ -1,5 +1,7 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class SpawnManager : MonoBehaviour
 {
@@ -10,11 +12,14 @@ public class SpawnManager : MonoBehaviour
     [SerializeField] private bool canSpawn = true;
     [SerializeField] private float spawnTime;
     [SerializeField] private bool spawnerDone;
+    [SerializeField] private TextMeshProUGUI timerText;
     GameObject currentPoint;
     int index;
+    GameManager gameManager;
 
     void Start()
     {
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         StartCoroutine(IncreaseDifficulty());
         Invoke("spawnGhost", 1f);
     }
@@ -35,13 +40,21 @@ public class SpawnManager : MonoBehaviour
 
     void Update()
     {
+        if(gameManager.isPlaying)
+        {
         if(canSpawn)
         {
-            spawnTime -= Time.fixedDeltaTime;
+            timerText.text = $"{(int)spawnTime}";
+            spawnTime -= Time.deltaTime;
             if(spawnTime <= 0)
             {
-                canSpawn = false;
+                gameManager.isPlaying = false;
             }
+        }
+        }
+        else
+        {
+            canSpawn = false;
         }
     }
 
