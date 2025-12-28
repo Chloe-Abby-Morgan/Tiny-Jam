@@ -10,6 +10,10 @@ public class LightingManager : MonoBehaviour
     [SerializeField] private float lightingTime =5f;
     [SerializeField] private SpriteRenderer[] ghostRenderers;
     [SerializeField] private Color darkColour;
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip appear;
+    [SerializeField] private AudioClip disappear;
+    [SerializeField] private AudioClip lightning;
     private GameObject[] ghosts;
     private Color[] orginalColours;
     private int index=0;
@@ -51,6 +55,8 @@ public class LightingManager : MonoBehaviour
                 ghostRender.color = new Color(darkColour.r, darkColour.g, darkColour.b, darkColour.a);
             }
         }
+        audioSource.PlayOneShot(lightning);
+        audioSource.PlayOneShot(disappear);
         yield return new WaitForSeconds(lightingTime/2);
 
         foreach(SpriteRenderer ghostRender in ghostRenderers)
@@ -60,7 +66,7 @@ public class LightingManager : MonoBehaviour
                 ghostRender.color = new Color(orginalColours[index].r, orginalColours[index].g, orginalColours[index].b, 1);
             }
             index++;
-            
         }
+        audioSource.PlayOneShot(appear);
     }
 }

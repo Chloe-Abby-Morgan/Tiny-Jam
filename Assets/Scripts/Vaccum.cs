@@ -6,6 +6,10 @@ using UnityEngine;
 public class Vaccum : MonoBehaviour
 {
     [SerializeField] private float captureTime = 1f;
+    [SerializeField] private AudioClip capture;
+    [SerializeField] private AudioClip vacSFX;
+    [SerializeField] private AudioSource VAudioSource;
+    [SerializeField] private AudioSource audioSource;
     private CollectionManager collectionManager;
     private bool capturing = false;
 
@@ -20,7 +24,8 @@ public class Vaccum : MonoBehaviour
         {
             if (!capturing)
             {
-            StartCoroutine(Capture(other.gameObject.GetComponent<Ghost>().colour, other.gameObject));
+                VAudioSource.PlayOneShot(vacSFX);
+                StartCoroutine(Capture(other.gameObject.GetComponent<Ghost>().colour, other.gameObject));
             }
         }
     }
@@ -58,6 +63,7 @@ public class Vaccum : MonoBehaviour
                         collectionManager.collectedImageObj[i].sprite = collectionManager.sourceImages[2];
                     }
                     Destroy(ghost);
+                    audioSource.PlayOneShot(capture);
                     break;
                 }
             }

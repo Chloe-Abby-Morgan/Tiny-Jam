@@ -12,18 +12,21 @@ public class Player : MonoBehaviour
     [SerializeField] private float moveSpeed = 5;
     [SerializeField] private float hurtTime = 2f;
     [SerializeField] private GameObject vaccumObject;
+    [SerializeField] private GameObject hurtSFX;
     [SerializeField] private Rigidbody2D vaccumRb;
     [SerializeField] private GameObject vaccumSprite;
     [SerializeField] private SpriteRenderer playerSprite;
     [SerializeField] private Sprite hurtSprite;
     [SerializeField] private Sprite idleSprite;
     [SerializeField] private GameObject vaccumAppareil;
+    [SerializeField] private AudioSource empty;
     public bool isHurt = false;
     private float moveInput;
     private CollectionManager collectionManager;
     private GameObject[] ghosts;
     private bool hurting = false;
     private bool facingLeft = false;
+    private bool sLock=true;
     Vector2 movement;
     Vector2 mousePosition;
     GameManager gameManager;
@@ -45,10 +48,20 @@ public class Player : MonoBehaviour
             {
                 vaccumSprite.SetActive(true);
             }
+            else if(Input.GetButton("Fire1") && collectionManager.collected[^1] != "" && sLock)
+            {
+                sLock = false;
+                empty.PlayOneShot(empty.clip);         
+            }
             else
             {
                 vaccumSprite.SetActive(false);
             }
+
+            if(Input.GetButtonUp("Fire1"))
+                {
+                    sLock = true;
+                }
 
             if(Input.GetKeyDown(KeyCode.R))
             {
@@ -59,6 +72,7 @@ public class Player : MonoBehaviour
                         collectionManager.imageObj[i].SetActive(false);
                         collectionManager.correct[i] = false;
                     }
+                empty.PlayOneShot(empty.clip);
             }
             
                 movement.x = Input.GetAxisRaw("Horizontal");
@@ -100,6 +114,7 @@ public class Player : MonoBehaviour
     IEnumerator Damage()
     {
         Debug.Log("Owwwww");
+        hurtSFX.SetActive(true);
         vaccumAppareil.SetActive(false);
         playerSprite.sprite = hurtSprite;
         vaccumSprite.SetActive(false);
@@ -120,6 +135,7 @@ public class Player : MonoBehaviour
         hurting = !hurting;
         playerSprite.sprite = idleSprite;
         vaccumAppareil.SetActive(true);
+        hurtSFX.SetActive(false);
     }
 
     void Fliper()
