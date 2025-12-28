@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text.RegularExpressions;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -16,6 +17,7 @@ public class Player : MonoBehaviour
     [SerializeField] private SpriteRenderer playerSprite;
     [SerializeField] private Sprite hurtSprite;
     [SerializeField] private Sprite idleSprite;
+    [SerializeField] private GameObject vaccumAppareil;
     public bool isHurt = false;
     private float moveInput;
     private CollectionManager collectionManager;
@@ -38,6 +40,7 @@ public class Player : MonoBehaviour
         {
         if(!isHurt)
         {
+            vaccumAppareil.SetActive(true);
             if(Input.GetButton("Fire1") && collectionManager.collected[^1] == "")
             {
                 vaccumSprite.SetActive(true);
@@ -72,7 +75,7 @@ public class Player : MonoBehaviour
                 {
                     Fliper();
                 }
-            else if(!facingLeft && mousePosition.x < 0)
+                else if(!facingLeft && mousePosition.x< 0)
                 {
                     Fliper();
                 }
@@ -97,6 +100,7 @@ public class Player : MonoBehaviour
     IEnumerator Damage()
     {
         Debug.Log("Owwwww");
+        vaccumAppareil.SetActive(false);
         playerSprite.sprite = hurtSprite;
         vaccumSprite.SetActive(false);
         for(int i = 0; i < collectionManager.collected.Length; i++)
@@ -109,12 +113,13 @@ public class Player : MonoBehaviour
 
         foreach(GameObject ghost in ghosts)
         {
-            Destroy(ghost);
+            ghost.GetComponent<Ghost>().die();
         }
         yield return new WaitForSeconds(hurtTime);
         isHurt = !isHurt;
         hurting = !hurting;
         playerSprite.sprite = idleSprite;
+        vaccumAppareil.SetActive(true);
     }
 
     void Fliper()

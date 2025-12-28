@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject mainMenu;
     [SerializeField] private GameObject gameMenu;
     private bool pLock = true;
+    private bool sLock = true;
     CollectionManager collectionManager;
 
     void Awake()
@@ -43,12 +44,17 @@ public class GameManager : MonoBehaviour
                 }
             }
 
-            mainMenu.SetActive(true);
-            gameMenu.SetActive(false);
+            if(sLock)
+            {
+                mainMenu.SetActive(true);
+                gameMenu.SetActive(false);
+                sLock = false;
+            }
         }
         else
         {
              pLock = true;
+             sLock = true;
         }
     }
 

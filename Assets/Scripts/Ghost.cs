@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Security.Cryptography;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Ghost : MonoBehaviour
@@ -7,6 +8,7 @@ public class Ghost : MonoBehaviour
     [SerializeField] private float speed = 1f;
     [SerializeField] private SpriteRenderer ghostSprite;
     private GameObject player;
+    private Animator andy;
     public string colour = "green";
     GameManager gameManager;
 
@@ -15,6 +17,7 @@ public class Ghost : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
         ghostSprite = GetComponent<SpriteRenderer>();
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        andy = GetComponent<Animator>();
     }
 
     void Update()
@@ -33,8 +36,19 @@ public class Ghost : MonoBehaviour
     {
         if(other.gameObject.tag == "Player")
         {
-            player.GetComponent<Player>().isHurt = true;
-            Destroy(gameObject);
+            die();
         }
+    }
+
+public void die()
+    {
+        player.GetComponent<Player>().isHurt = true;
+        StartCoroutine(dying());
+    }
+    IEnumerator dying()
+    {
+        andy.SetBool("isDead", true);
+        yield return new WaitForSeconds(0.6f);
+        Destroy(gameObject);
     }
 }
