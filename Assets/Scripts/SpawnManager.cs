@@ -80,17 +80,17 @@ public class SpawnManager : MonoBehaviour
         minimumTimeBetweenSpawn = 1.75f;
         maximumTimeBetweenSpawn = 5f;
         Debug.Log("increased difficulty 3");
-        yield return new WaitForSeconds(20f);
-        minimumTimeBetweenSpawn = 1.75f;
-        maximumTimeBetweenSpawn = 4.5f;
-        Debug.Log("increased difficulty 4");
-        yield return new WaitForSeconds(20f);
-        minimumTimeBetweenSpawn = 1.66f;
-        maximumTimeBetweenSpawn = 4f;
-        Debug.Log("increased difficulty 5");
-        yield return new WaitForSeconds(20f);
-        minimumTimeBetweenSpawn = 1.5f;
-        maximumTimeBetweenSpawn = 4f;
+        // yield return new WaitForSeconds(20f);
+        // minimumTimeBetweenSpawn = 1.75f;
+        // maximumTimeBetweenSpawn = 4.5f;
+        // Debug.Log("increased difficulty 4");
+        // yield return new WaitForSeconds(20f);
+        // minimumTimeBetweenSpawn = 1.66f;
+        // maximumTimeBetweenSpawn = 4f;
+        // Debug.Log("increased difficulty 5");
+        // yield return new WaitForSeconds(20f);
+        // minimumTimeBetweenSpawn = 1.5f;
+        // maximumTimeBetweenSpawn = 4f;
     }
 
     //Code Appropiatied from https://ldjam.com/events/ludum-dare/46/slimekeep
